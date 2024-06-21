@@ -5,28 +5,17 @@ import path from "path";
 const dbPath = path.resolve(__dirname, "../db/db.json");
 
 export const read = (req: Request, res: Response) => {
-  const index = parseInt(req.query.index as string);
+  const { index } = req.query;
+  const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
 
-  if (!Number.isInteger(index) || index < 0) {
+  if (
+    !index ||
+    isNaN(Number(index)) ||
+    Number(index) < 0 ||
+    Number(index) >= db.submissions.length
+  ) {
     return res.status(400).json({ error: "Invalid index" });
   }
 
-  fs.readFile(dbPath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: "Error reading database" });
-    }
-
-    let submissions = [];
-    try {
-      submissions = JSON.parse(data);
-    } catch (error) {
-      return res.status(500).json({ error: "Error parsing database" });
-    }
-
-    if (index >= submissions.length) {
-      return res.status(404).json({ error: "Submission not found" });
-    }
-
-    res.json(submissions[index]);
-  });
+  res.json(db.submissions[Number(index)]);
 };

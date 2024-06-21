@@ -6,32 +6,16 @@ import { Submission } from "../models/submission";
 const dbPath = path.resolve(__dirname, "../db/db.json");
 
 export const submit = (req: Request, res: Response) => {
-  const { name, email, phone, github_link, stopwatch_time } = req.body;
-  if (!name || !email || !phone || !github_link || !stopwatch_time) {
+  const { Name, Email, Phone, GitHub, StopwatchTime } = req.body;
+
+  // Validate required fields
+  if (!Name || !Email || !Phone || !GitHub || !StopwatchTime) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
-  const newSubmission: Submission = {
-    name,
-    email,
-    phone,
-    github_link,
-    stopwatch_time,
-  };
+  const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
+  db.submissions.push({ Name, Email, Phone, GitHub, StopwatchTime });
+  fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
 
-  fs.readFile(dbPath, "utf8", (err, data) => {
-    if (err) {
-      return res.status(500).json({ error: "Error reading database" });
-    }
-
-    const submissions: Submission[] = data ? JSON.parse(data) : [];
-    submissions.push(newSubmission);
-
-    fs.writeFile(dbPath, JSON.stringify(submissions, null, 2), (err) => {
-      if (err) {
-        return res.status(500).json({ error: "Error writing to database" });
-      }
-      res.status(201).json({ success: true });
-    });
-  });
+  res.json({ success: true });
 };

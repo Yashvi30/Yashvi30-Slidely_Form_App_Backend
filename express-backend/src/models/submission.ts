@@ -1,7 +1,7 @@
 export interface Submission {
-  name: string;
-  email: string;
-  phone: string;
-  github_link: string;
-  stopwatch_time: string;
+  Name: string;
+  Email: string;
+  Phone: string;
+  GitHub: string;
+  StopwatchTime: string;
 }

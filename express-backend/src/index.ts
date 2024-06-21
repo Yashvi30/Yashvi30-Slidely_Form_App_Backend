@@ -1,9 +1,13 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { ping } from "./controllers/pingController";
 import { read } from "./controllers/readController";
 import { submit } from "./controllers/submitController";
+import bodyParser from "body-parser";
+import fs from "fs";
+import path from "path";
 
 const app = express();
+app.use(bodyParser.json());
 
 // Define root route handler
 app.get("/", (req, res) => {
