@@ -24,7 +24,7 @@ export const submit = (req: Request, res: Response) => {
       return res.status(500).json({ error: "Error reading database" });
     }
 
-    const submissions = data ? JSON.parse(data) : [];
+    const submissions: Submission[] = data ? JSON.parse(data) : [];
     submissions.push(newSubmission);
 
     fs.writeFile(dbPath, JSON.stringify(submissions, null, 2), (err) => {

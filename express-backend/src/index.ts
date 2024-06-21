@@ -1,18 +1,17 @@
 import express from "express";
-import bodyParser from "body-parser";
 import pingRouter from "./routes/ping";
-import submitRouter from "./routes/submit";
 import readRouter from "./routes/read";
+import submitRouter from "./routes/submit";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.use("/ping", pingRouter);
-app.use("/submit", submitRouter);
 app.use("/read", readRouter);
+app.use("/submit", submitRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
 });
