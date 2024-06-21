@@ -1,25 +1,25 @@
 {
   "submissions": [
     {
-      "Name": "John Doe",
-      "Email": "johndoe@example.com",
-      "Phone": "123-456-7890",
-      "GitHub": "https://github.com/johndoe",
-      "StopwatchTime": "00:15:30"
-    },
-    {
-      "Name": "Jane Smith",
-      "Email": "janesmith@example.com",
-      "Phone": "987-654-3210",
-      "GitHub": "https://github.com/janesmith",
-      "StopwatchTime": "00:20:00"
-    },
-    {
       "Name": "Yashvi Garg",
       "Email": "yashvi@gmail.com",
       "Phone": "739208262",
       "GitHub": "github.com/yashvi",
       "StopwatchTime": "00:00:02"
+    },
+    {
+      "Name": "Yahvi",
+      "Email": "yahvi@gmail.com",
+      "Phone": "12757179767",
+      "GitHub": "github.com/yahvi",
+      "StopwatchTime": "00:00:07"
+    },
+    {
+      "Name": "Dhruv",
+      "Email": "dhruv@gmail.com",
+      "Phone": "12757179767",
+      "GitHub": "github.com/dhruv",
+      "StopwatchTime": "00:20:07"
     }
   ]
 }
