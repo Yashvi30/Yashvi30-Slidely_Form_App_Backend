@@ -7,7 +7,7 @@ const dbPath = path.resolve(__dirname, "../db/db.json");
 export const read = (req: Request, res: Response) => {
   const index = parseInt(req.query.index as string);
 
-  if (isNaN(index) || index < 0) {
+  if (!Number.isInteger(index) || index < 0) {
     return res.status(400).json({ error: "Invalid index" });
   }
 
@@ -16,7 +16,12 @@ export const read = (req: Request, res: Response) => {
       return res.status(500).json({ error: "Error reading database" });
     }
 
-    const submissions = data ? JSON.parse(data) : [];
+    let submissions = [];
+    try {
+      submissions = JSON.parse(data);
+    } catch (error) {
+      return res.status(500).json({ error: "Error parsing database" });
+    }
 
     if (index >= submissions.length) {
       return res.status(404).json({ error: "Submission not found" });

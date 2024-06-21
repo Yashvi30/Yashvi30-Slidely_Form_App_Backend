@@ -1,17 +1,22 @@
 import express from "express";
-import pingRouter from "./routes/ping";
-import readRouter from "./routes/read";
-import submitRouter from "./routes/submit";
+import { ping } from "./controllers/pingController";
+import { read } from "./controllers/readController";
+import { submit } from "./controllers/submitController";
 
 const app = express();
-const port = 3000;
 
-app.use(express.json());
+// Define root route handler
+app.get("/", (req, res) => {
+  res.send("Welcome to my API"); // Replace with your desired response
+});
 
-app.use("/ping", pingRouter);
-app.use("/read", readRouter);
-app.use("/submit", submitRouter);
+// Other route definitions
+app.get("/ping", ping);
+app.get("/read", read);
+app.post("/submit", submit);
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+// Start server
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
