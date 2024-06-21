@@ -8,6 +8,7 @@ import path from "path";
 
 const app = express();
 app.use(bodyParser.json());
+const dbPath = path.resolve(__dirname, "../src/db/db.json");
 
 // Define root route handler
 app.get("/", (req, res) => {
@@ -18,6 +19,11 @@ app.get("/", (req, res) => {
 app.get("/ping", ping);
 app.get("/read", read);
 app.post("/submit", submit);
+
+app.get("/total", (req: Request, res: Response) => {
+  const db = JSON.parse(fs.readFileSync(dbPath, "utf-8"));
+  res.json({ total: db.submissions.length });
+});
 
 // Start server
 const PORT = 3000;
